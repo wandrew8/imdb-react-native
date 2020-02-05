@@ -1,11 +1,13 @@
 import React from 'react';
+import Main from './components/Main';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>IMDB Film Search</Text>
-    </View>
+    // <View style={styles.container} >
+    //   <Text style={styles.text} >IMDB Film Reviewer</Text>
+    // </View>
+    <Main />
   );
 }
 
@@ -19,6 +21,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 34,
     color: '#fff',
-    
+
   },
 });
