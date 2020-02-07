@@ -1,10 +1,30 @@
 import React from 'react';  
-import {StyleSheet, Text, View,Button} from 'react-native';  
-import { createBottomTabNavigator, createAppContainer} from 'react-navigation';  
+import { View } from 'react-native';  
+import { createStackNavigator } from 'react-navigation-stack';
+import { createAppContainer } from 'react-navigation';  
 import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';  
 import Icon from 'react-native-vector-icons/Ionicons';  
 import SearchPage from './SearchPage';
 import TopRated from './TopRated';
+import MovieInfo from './MovieInfo';
+
+const MovieNavigator = createStackNavigator(
+    {
+        "TopRated": { screen: TopRated },
+        "MovieInfo": { screen: MovieInfo },
+    },
+    {
+        navigationOptions: {
+            headerStyle: {
+                backgroundColor: '#1B9CFC'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            }
+        }
+    }
+);
 
 const TabNavigator = createMaterialBottomTabNavigator(  
     {  
@@ -17,7 +37,7 @@ const TabNavigator = createMaterialBottomTabNavigator(
                     </View>),  
             }  
         },  
-        Popular: { screen: TopRated,  
+        Popular: { screen: MovieNavigator,  
             navigationOptions:{  
                 tabBarLabel:'Popular',  
                 tabBarIcon: ({ tintColor }) => (  
@@ -32,8 +52,8 @@ const TabNavigator = createMaterialBottomTabNavigator(
       activeColor: '#f0edf6',  
       barStyle: { backgroundColor: '#3BAD87' },  
     },  
-);  
-  
+);
+
 const Container = createAppContainer(TabNavigator); 
 
 class Main extends React.Component {

@@ -40,38 +40,6 @@ export const MOVIES = [
         "Response": "True"
     },
     {
-        "Title": "Snow White",
-        "Year": "1987",
-        "Rated": "PG",
-        "Released": "23 Jun 1989",
-        "Runtime": "85 min",
-        "Genre": "Family, Fantasy, Musical, Romance",
-        "Director": "Michael Berz",
-        "Writer": "Michael Berz, Jacob Grimm (story), Wilhelm Grimm (story)",
-        "Actors": "Diana Rigg, Billy Barty, Sarah Patterson, Nicola Stapleton",
-        "Plot": "The ageless tale of a beautiful young princess whose jealous step- mother orders her killed so that she will be 'the fairest in the land.' When the henchman takes pity on her, he takes her to the house of the seven dwarfs.",
-        "Language": "English",
-        "Country": "USA",
-        "Awards": "N/A",
-        "Poster": "https://m.media-amazon.com/images/M/MV5BMTg2NDg2NzI2MF5BMl5BanBnXkFtZTcwMTI2NjAzMQ@@._V1_SX300.jpg",
-        "Ratings": [
-        {
-        "Source": "Internet Movie Database",
-        "Value": "6.7/10"
-        }
-        ],
-        "Metascore": "N/A",
-        "imdbRating": "6.7",
-        "imdbVotes": "662",
-        "imdbID": "tt0093999",
-        "Type": "movie",
-        "DVD": "09 Aug 2005",
-        "BoxOffice": "N/A",
-        "Production": "Golan-Globus Productions",
-        "Website": "N/A",
-        "Response": "True"
-    },
-    {
         "Title": "Jurassic Park",
         "Year": "1993",
         "Rated": "PG-13",

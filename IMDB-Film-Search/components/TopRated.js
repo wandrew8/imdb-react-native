@@ -1,31 +1,48 @@
 import React from 'react';
-import { View } from 'react-native';
-import { ListItem, FlatList } from 'react-native-elements';
+import { View, FlatList, Text  } from 'react-native';
+import { ListItem } from 'react-native-elements';
 import { MOVIES } from '../shared/movies';
 
 
+
 class TopRated extends React.Component {
+    constructor(props) {
+        super(props)
+    }
+
+    static navigationOptions = {
+        title: 'Top Rated Films',
+    }
+
     render() {
+    const { navigate } = this.props.navigation;
+    const renderMovie = ({item}) => {
+        return (
+            <ListItem
+                linearGradientProps={{
+                    colors: ['#f1f2f6', '#dfe4ea'],
+                    start: [1, 0],
+                    end: [1, 0],
+                }}
+                title={item.Title}
+                subtitle={`${item.Director} | ${item.Year}`}
+                bottomDivider
+                leftAvatar={{ source: { uri: item.Poster } }}
+                chevron
+                onPress={() => navigate('MovieInfo', {movieId: item.imdbID})}
+            />
+        )
+}
         return (
             <View>
-                    {
-                        MOVIES.map((movie, i) => (
-                            <ListItem
-                                key={i}
-                                linearGradientProps={{
-                                    colors: ['#f1f2f6', '#dfe4ea'],
-                                    start: [1, 0],
-                                    end: [1, 0],
-                                }}
-                                title={movie.Title}
-                                subtitle={`${movie.Director} | ${movie.Year}`}
-                                bottomDivider
-                                leftAvatar={{ source: { uri: movie.Poster } }}
-                                chevron
-                            />
-                        ))
-                    }
+                <FlatList
+                    data={MOVIES}
+                    renderItem={renderMovie}
+                    keyExtractor={movie => movie.imdbID}
+                ></FlatList>
+                <Text>Hello</Text>
             </View>
+
         )
     }
 }
