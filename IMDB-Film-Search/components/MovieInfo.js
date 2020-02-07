@@ -1,36 +1,42 @@
 import React from 'react';
-import { Text, View, Image, FlatList } from 'react-native';
+import { Text, ScrollView, Image } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
 import { MOVIES } from '../shared/movies';
-
-const renderMovieDetails = ({item}) => {
-    return (
-        <ListItem>
-            <Text>{item.Title}</Text>
-            <Text>{item.Year}</Text>
-            <Text>{item.Title}</Text>
-            <Text>{item.Title}</Text>
-
-        </ListItem>
-    )
-}
 
 function RenderMovieCard({movie}) {
     if(movie) {
         return (
-            <Card
-                title={movie.Title}
-                subtitle={movie.Year}>
-                <Image
-                    source={{ uri: movie.Poster }}
-                    style={{ width: 150, height: 225, }}
-                />
-                <FlatList
-                    keyExtractor={movie => movie.imdbID}
-                    data={MOVIES}
-                    renderItem={renderMovieDetails}
-                />
-            </Card>
+            <ScrollView>
+                <Card
+                    title={movie.Title}>
+                    <Image
+                        source={{ uri: movie.Poster }}
+                        style={{ width: 150, height: 225, marginBottom: 15, }}
+                    />
+                    <ListItem
+                        title="Plot and Summary"
+                        subtitle={`${movie.Plot}\n\nDirector:  ${movie.Director}Genre:  ${movie.Genre}\nReleased by ${movie.Production}`}
+                        bottomDivider
+                        topDivider
+                    />
+                    <ListItem
+                        title="Details"
+                        subtitle={`Year:  ${movie.Year}\nRated:  ${movie.Rated}\nReleased:  ${movie.Released}\nLanguage:  ${movie.Language}\nRuntime:  ${movie.Runtime}\nCountry:  ${movie.Country}`}
+                        bottomDivider
+                    />
+                    <ListItem
+                        title="Cast"
+                        subtitle={` ${movie.Actors.split(",").join("\n")}`}
+                        bottomDivider
+                    />
+                    <ListItem
+                        title="Critical Reception"
+                        subtitle={`${movie.Awards === "N/A" ? "This film has recieved no awards" : movie.Awards }\n\nReviews\n${movie.Ratings[0] ? `${movie.Ratings[0].Source}: ${movie.Ratings[0].Value}` : ""}\n${movie.Ratings[1] ? `${movie.Ratings[1].Source}: ${movie.Ratings[1].Value}` : ""}\n${movie.Ratings[2] ? `${movie.Ratings[2].Source}: ${movie.Ratings[2].Value}` : ""}`}
+                        bottomDivider
+                    />
+
+                </Card>
+            </ScrollView>
         )
     }
     return <Text>Sorry, can't find this movie</Text>
