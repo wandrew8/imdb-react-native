@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, ScrollView, Image, Text } from 'react-native';
 import { Card, ListItem } from 'react-native-elements';
+import Loading from './Loading';
 
 class RenderResults extends React.Component {
     constructor(props) {
@@ -8,13 +9,11 @@ class RenderResults extends React.Component {
     }
     render() {
         const { movie } = this.props;
-        if (this.props.isError) {
+        if (this.props.isLoading) {
             return (
-                <View>
-                    <Text>Sorry, we can't find this film</Text>
-                </View>
+                <Loading />
             )
-        } if (!this.props.isError && movie) {
+        } if (!this.props.isLoading && movie && movie.Title) {
         return (
             <ScrollView>
                 <Card style={{marginBottom: 10 }}>
@@ -35,9 +34,15 @@ class RenderResults extends React.Component {
                 </Card>
             </ScrollView>
             )
-        } else return (
-            <View />
+        } if (movie && !movie.Title && this.props.searchMovie) {
+            return (
+            <View>
+                <Text style={{textAlign: 'center', marginTop: 30,}}>Sorry, we cannot find that movie</Text>
+            </View>
         )
+        } else {
+            return <View />
+        }
     }
 }
 

@@ -34,6 +34,7 @@ class SearchPage extends React.Component {
         this.state = {
             search: '',
             isLoading: false,
+            searchMovie: false,
          }
     }
 
@@ -54,7 +55,7 @@ class SearchPage extends React.Component {
                 )
             )
         } else {
-            this.setState({ isLoading: true })
+            this.setState({ isLoading: true, searchMovie: true })
             fetch('https://www.omdbapi.com/?apikey=2488b5dd&t=' + this.state.search)
             .then(response => response.json())
             .then(responseJson => {
@@ -103,7 +104,7 @@ class SearchPage extends React.Component {
                     </View>
                 </View>
                 <View style={{flex: 1}}>
-                    <RenderResults movie={this.state.data}/>
+                    <RenderResults searchMovie={this.state.searchMovie} isLoading={this.state.isLoading} movie={this.state.data}/>
                 </View>
             </View>
         )
