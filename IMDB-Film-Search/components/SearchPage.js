@@ -9,12 +9,22 @@ const styles = StyleSheet.create({
       textAlign: 'center',
       fontSize: 30,
       marginBottom: 30,
+      fontWeight: '300',
     },
     container: {
         flex: 1,
         backgroundColor: '#fff',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        borderWidth: 1,
+        borderRadius: 2,
+        borderColor: '#ddd',
+        borderBottomWidth: 1,
+        shadowColor: '#444',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.8,
+        shadowRadius: 4,
+        elevation: 1,
       },
   })
 
@@ -68,12 +78,13 @@ class SearchPage extends React.Component {
 
     render() {
         return (
-            <View style={{flex: 1,}}>
+            <View style={{flex: 1}}>
                 <Header 
+                    backgroundColor='#3BAD87'
                     leftComponent={{ icon: 'film', color: '#fff', type: 'font-awesome' }}
                     centerComponent={{ text: 'IMDB Film Search', style: { color: '#fff' }}}/>
                 <View style={styles.container}>
-                    <Text style={styles.text}>Welcome to the search page</Text>
+                    <Text style={styles.text}>SEARCH FILMS</Text>
                     <View style={{ width: '90%' }}>
                         <Input
                             inputContainerStyle={{marginBottom: 20}}

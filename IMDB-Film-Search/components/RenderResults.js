@@ -8,7 +8,13 @@ class RenderResults extends React.Component {
     }
     render() {
         const { movie } = this.props;
-        if (movie) {
+        if (this.props.isError) {
+            return (
+                <View>
+                    <Text>Sorry, we can't find this film</Text>
+                </View>
+            )
+        } if (!this.props.isError && movie) {
         return (
             <ScrollView>
                 <Card style={{marginBottom: 10 }}>
@@ -29,12 +35,10 @@ class RenderResults extends React.Component {
                 </Card>
             </ScrollView>
             )
-        } else {
-            return (
-                <View />
-            )
-        }
-}
+        } else return (
+            <View />
+        )
+    }
 }
 
 export default RenderResults;
