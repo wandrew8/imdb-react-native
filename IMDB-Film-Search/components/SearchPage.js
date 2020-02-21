@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Alert, Keyboard } from 'react-native';
-import { Input, Header } from 'react-native-elements';
+import { View, Text, StyleSheet, Button, Alert, Keyboard, ScrollView } from 'react-native';
+import { Input } from 'react-native-elements';
 import RenderResults from './RenderResults';
   
 const styles = StyleSheet.create({
@@ -25,6 +25,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 4,
         elevation: 1,
+        paddingTop: 40,
+        paddingBottom: 40,
       },
   })
 
@@ -36,6 +38,10 @@ class SearchPage extends React.Component {
             isLoading: false,
             searchMovie: false,
          }
+    }
+
+    static navigationOptions = {
+        title: 'Search Films',
     }
 
     updateSearch = search => {
@@ -78,12 +84,10 @@ class SearchPage extends React.Component {
 
 
     render() {
+        const { navigate } = this.props.navigation;
         return (
+            <ScrollView>    
             <View style={{flex: 1}}>
-                <Header 
-                    backgroundColor='#3BAD87'
-                    leftComponent={{ icon: 'film', color: '#fff', type: 'font-awesome' }}
-                    centerComponent={{ text: 'IMDB Film Search', style: { color: '#fff' }}}/>
                 <View style={styles.container}>
                     <Text style={styles.text}>SEARCH FILMS</Text>
                     <View style={{ width: '90%' }}>
@@ -104,9 +108,10 @@ class SearchPage extends React.Component {
                     </View>
                 </View>
                 <View style={{flex: 1}}>
-                    <RenderResults searchMovie={this.state.searchMovie} isLoading={this.state.isLoading} movie={this.state.data}/>
+                    <RenderResults navigate={navigate} searchMovie={this.state.searchMovie} isLoading={this.state.isLoading} movie={this.state.data}/>
                 </View>
             </View>
+            </ScrollView>
         )
     }
 }

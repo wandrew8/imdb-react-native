@@ -7,6 +7,25 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import SearchPage from './SearchPage';
 import TopRated from './TopRated';
 import MovieInfo from './MovieInfo';
+import SearchedFilm from './SearchedFilm';
+
+const SearchNavigator = createStackNavigator(
+    {
+        "SearchPage": { screen: SearchPage },
+        "SearchedFilm": { screen: SearchedFilm },
+    },
+    {
+        navigationOptions: {
+            headerStyle: {
+                backgroundColor: '#1B9CFC'
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+                color: '#fff'
+            }
+        }
+    }
+);
 
 const MovieNavigator = createStackNavigator(
     {
@@ -28,7 +47,7 @@ const MovieNavigator = createStackNavigator(
 
 const TabNavigator = createMaterialBottomTabNavigator(  
     {  
-        Search: { screen: SearchPage,  
+        Search: { screen: SearchNavigator,  
             navigationOptions:{  
                 tabBarLabel:'Search',  
                 tabBarIcon: ({ tintColor }) => (  
