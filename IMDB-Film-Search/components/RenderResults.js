@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Animatable from 'react-native-animatable';
-import { View, ScrollView, Image, Text, Button } from 'react-native';
-import { Card, ListItem } from 'react-native-elements';
+import { View, ScrollView, Image, Text } from 'react-native';
+import { Card, ListItem, Button } from 'react-native-elements';
 import Loading from './Loading';
 
 class RenderResults extends React.Component {
@@ -25,16 +25,20 @@ class RenderResults extends React.Component {
                             <View style={{width: '40%', paddingTop: 5, minHeight: 180, }}>
                                 <Image
                                     source={{ uri: movie.Poster }}
-                                    style={{ width: 140, height: '100%', marginBottom: 15, }}/>
+                                    style={{ width: '100%', height: '100%', marginBottom: 15, }}/>
                             </View>
                             <View style={{width: '60%' }}>
-                                <Text style={{fontSize: 20, textAlign: 'center'}}>{movie.Title}</Text>
+                                <Text style={{fontSize: 20, textAlign: 'center'}}>{movie.Title.toUpperCase()}</Text>
                                 <ListItem
-                                    style={{paddingTop: 5, paddingBottom: 30 }}
+                                    style={{paddingTop: 5, paddingBottom: 5 }}
                                     title="Film Details"
                                     subtitle={`Year:  ${movie.Year}\nRated:  ${movie.Rated}\nReleased:  ${movie.Released}\nLanguage:  ${movie.Language}\nRuntime:  ${movie.Runtime}\nCountry:  ${movie.Country}`}/>
-                                <View style={{width: '75%', justifyContent: 'center', textAlign: 'center', }}>
-                                    <Button title="more details" onPress={() => navigate('SearchedFilm', {movie: movie})}/>
+                                <View style={{width: '70%', justifyContent: 'center', textAlign: 'center', marginLeft: 40, marginRight: 40,}}>
+                                    <Button 
+                                        title="MORE DETAILS" 
+                                        type="outline"
+                                        style={{position: 'absolute', bottom: 10}}
+                                        onPress={() => navigate('SearchedFilm', {movie: movie})}/>
                                 </View>
                             </View>
                         </View>
