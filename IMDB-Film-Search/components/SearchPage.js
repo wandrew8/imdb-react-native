@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Alert, Keyboard, ScrollView } from 'react-native';
-import { Input } from 'react-native-elements';
+import { View, Text, StyleSheet, Button, Image, Alert, Keyboard, ScrollView } from 'react-native';
+import { Input, Card, ListItem } from 'react-native-elements';
+import Carousel from 'react-native-snap-carousel';
 import RenderResults from './RenderResults';
+import { FEATURED } from '../shared/featured'
   
 const styles = StyleSheet.create({
     text: {
@@ -37,6 +39,7 @@ class SearchPage extends React.Component {
             search: '',
             isLoading: false,
             searchMovie: false,
+            featured: FEATURED,
          }
     }
 
@@ -48,12 +51,41 @@ class SearchPage extends React.Component {
         this.setState({ search });
     }
 
+    _renderItem ({item, index}) {
+        return (
+            <Card 
+                style={{marginBottom: 10 }}>
+                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', }}>
+                    <View style={{width: '40%', paddingTop: 5, minHeight: 180, }}>
+                        <Image
+                            source={{ uri: item.Poster }}
+                            style={{ width: '100%', height: '100%', marginBottom: 15, }}/>
+                    </View>
+                    <View style={{width: '60%' }}>
+                        <Text style={{fontSize: 20, textAlign: 'center'}}>{item.Title.toUpperCase()}</Text>
+                        <ListItem
+                            style={{paddingTop: 5, paddingBottom: 5 }}
+                            title="Film Details"
+                            subtitle={`Year:  ${item.Year}\nRated:  ${item.Rated}\nReleased:  ${item.Released}\nLanguage:  ${item.Language}\nRuntime:  ${item.Runtime}\nCountry:  ${item.Country}`}/>
+                        <View style={{width: '70%', justifyContent: 'center', textAlign: 'center', marginLeft: 40, marginRight: 40,}}>
+                            <Button 
+                                title="MORE DETAILS" 
+                                type="outline"
+                                style={{position: 'absolute', bottom: 10}}
+                                onPress={() => navigate('SearchedFilm', {movie: item})}/>
+                        </View>
+                    </View>
+                </View>
+            </Card>
+        );
+    }
+
     handleSearch = () => {
         if (!this.state.search) {
             return (
                 Alert.alert(
                     'Oops!',
-                    'Please enter some text',
+                    'Please enter the name of a film',
                     [
                         {text: 'OK', onPress: () => console.log('OK Pressed')},
                     ],
@@ -94,7 +126,7 @@ class SearchPage extends React.Component {
                         <Input
                             inputContainerStyle={{marginBottom: 20}}
                             leftIcon={{type: 'font-awesome', name: 'search' }}
-                            placeholder='  Search for films here...'
+                            placeholder='  Search by film title...'
                             onChangeText={(search)=>this.setState({search: search})}
                             value={this.state.search} />
                     </View>
@@ -109,6 +141,13 @@ class SearchPage extends React.Component {
                 </View>
                 <View style={{flex: 1}}>
                     <RenderResults navigate={navigate} searchMovie={this.state.searchMovie} isLoading={this.state.isLoading} movie={this.state.data}/>
+                    <Carousel
+                        ref={(c) => { this._carousel = c; }}
+                        data={this.state.featured}
+                        renderItem={this._renderItem}
+                        sliderWidth={400}
+                        itemWidth={400}
+                        />
                 </View>
             </View>
             </ScrollView>

@@ -17,7 +17,7 @@ const SearchNavigator = createStackNavigator(
     {
         navigationOptions: {
             headerStyle: {
-                backgroundColor: '#1B9CFC'
+                backgroundColor: '#34ace0'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -35,7 +35,7 @@ const MovieNavigator = createStackNavigator(
     {
         navigationOptions: {
             headerStyle: {
-                backgroundColor: '#1B9CFC'
+                backgroundColor: '#34ace0'
             },
             headerTintColor: '#fff',
             headerTitleStyle: {

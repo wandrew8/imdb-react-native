@@ -55,7 +55,7 @@ class SearchedFilm extends Component {
                         style={{position: 'absolute', top: 110, backgroundColor: 'rgba(0,0,0,0.5)', width: '100%' }}>
                         <Animatable.View animation="slideInLeft">
                             <Text style={styles.header}>{movie.Title}</Text>
-                            <Text style={styles.caption}>Directed by: {movie.Director}</Text>
+                            <Text style={styles.caption}>Release Date: {movie.Released}</Text>
                         </Animatable.View>
                     </View>
                     <Animatable.View animation="slideInUp">
