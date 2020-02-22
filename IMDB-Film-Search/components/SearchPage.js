@@ -3,7 +3,10 @@ import { View, Text, StyleSheet, Button, Image, Alert, Keyboard, ScrollView } fr
 import { Input, Card, ListItem } from 'react-native-elements';
 import Carousel from 'react-native-snap-carousel';
 import RenderResults from './RenderResults';
-import { FEATURED } from '../shared/featured'
+import { DRAMA } from '../shared/drama';
+import { ANIMATED } from '../shared/animated';
+import { ACTION } from '../shared/action';
+import { COMEDY } from '../shared/comedy';
   
 const styles = StyleSheet.create({
     text: {
@@ -39,7 +42,10 @@ class SearchPage extends React.Component {
             search: '',
             isLoading: false,
             searchMovie: false,
-            featured: FEATURED,
+            action: ACTION,
+            comedy: COMEDY,
+            drama: DRAMA,
+            animated: ANIMATED,
          }
     }
 
@@ -51,35 +57,7 @@ class SearchPage extends React.Component {
         this.setState({ search });
     }
 
-    _renderItem ({item, index}) {
-        return (
-            <Card 
-                style={{marginBottom: 10 }}>
-                <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', }}>
-                    <View style={{width: '40%', paddingTop: 5, minHeight: 180, }}>
-                        <Image
-                            source={{ uri: item.Poster }}
-                            style={{ width: '100%', height: '100%', marginBottom: 15, }}/>
-                    </View>
-                    <View style={{width: '60%' }}>
-                        <Text style={{fontSize: 20, textAlign: 'center'}}>{item.Title.toUpperCase()}</Text>
-                        <ListItem
-                            style={{paddingTop: 5, paddingBottom: 5 }}
-                            title="Film Details"
-                            subtitle={`Year:  ${item.Year}\nRated:  ${item.Rated}\nReleased:  ${item.Released}\nLanguage:  ${item.Language}\nRuntime:  ${item.Runtime}\nCountry:  ${item.Country}`}/>
-                        <View style={{width: '70%', justifyContent: 'center', textAlign: 'center', marginLeft: 40, marginRight: 40,}}>
-                            <Button 
-                                title="MORE DETAILS" 
-                                type="outline"
-                                style={{position: 'absolute', bottom: 10}}
-                                onPress={() => navigate('SearchedFilm', {movie: item})}/>
-                        </View>
-                    </View>
-                </View>
-            </Card>
-        );
-    }
-
+    
     handleSearch = () => {
         if (!this.state.search) {
             return (
@@ -117,6 +95,39 @@ class SearchPage extends React.Component {
 
     render() {
         const { navigate } = this.props.navigation;
+
+        const _renderItem = ({item}) => {
+            return (
+                <Card 
+                    style={{marginBottom: 10 }}>
+                    <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', }}>
+                        <View style={{width: '40%', paddingTop: 5, minHeight: 180, }}>
+                            <Image
+                                source={{ uri: item.Poster }}
+                                style={{ width: '100%', height: '100%', marginBottom: 15, }}/>
+                        </View>
+                        <View style={{width: '60%' }}>
+                            <Text style={{fontSize: 20, textAlign: 'center'}}>{item.Title.toUpperCase()}</Text>
+                            <ListItem
+                                style={{paddingTop: 5, paddingBottom: 5 }}
+                                title="Film Details"
+                                subtitle={`Year:  ${item.Year}\nRated:  ${item.Rated}\nReleased:  ${item.Released}\nRuntime:  ${item.Runtime}\nCountry:  ${item.Country}`}/>
+                            <View style={{width: '70%', justifyContent: 'center', textAlign: 'center', marginLeft: 40, marginRight: 40,}}>
+                                <Button 
+                                    title="MORE DETAILS" 
+                                    type="outline"
+                                    style={{position: 'absolute', bottom: 10}}
+                                    onPress={() => {
+                                        console.log(item)
+                                        console.log(navigate)
+                                        navigate('SearchedFilm', {movie: item})}}/>
+                            </View>
+                        </View>
+                    </View>
+                </Card>
+            );
+        }
+    
         return (
             <ScrollView>    
             <View style={{flex: 1}}>
@@ -141,13 +152,42 @@ class SearchPage extends React.Component {
                 </View>
                 <View style={{flex: 1}}>
                     <RenderResults navigate={navigate} searchMovie={this.state.searchMovie} isLoading={this.state.isLoading} movie={this.state.data}/>
+                    <Text>Top Action Films</Text>
                     <Carousel
                         ref={(c) => { this._carousel = c; }}
-                        data={this.state.featured}
-                        renderItem={this._renderItem}
+                        data={this.state.action}
+                        renderItem={(item) => _renderItem(item, navigate)}
                         sliderWidth={400}
                         itemWidth={400}
                         />
+                    <Text>Top Comedy Films</Text>
+                    <Carousel
+                        ref={(c) => { this._carousel = c; }}
+                        data={this.state.comedy}
+                        renderItem={_renderItem}
+                        sliderWidth={400}
+                        itemWidth={400}
+                        navigate={() => navigate('SearchedFilm', {movie: item})}
+                        />
+                    <Text>Top Animated Films</Text>
+                    <Carousel
+                        ref={(c) => { this._carousel = c; }}
+                        data={this.state.animated}
+                        renderItem={_renderItem}
+                        sliderWidth={400}
+                        itemWidth={400}
+                        navigate={navigate}
+                        />
+                    <Text>Top Drama Films</Text>
+                    <Carousel
+                        ref={(c) => { this._carousel = c; }}
+                        data={this.state.drama}
+                        renderItem={_renderItem}
+                        sliderWidth={400}
+                        itemWidth={400}
+                        navigate={navigate}
+                        />
+                    
                 </View>
             </View>
             </ScrollView>
