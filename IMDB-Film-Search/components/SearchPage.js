@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Image, Alert, Keyboard, ScrollView } from 'react-native';
-import { Input, Card, ListItem } from 'react-native-elements';
+import { View, Text, StyleSheet, Image, Alert, ImageBackground, Keyboard, ScrollView } from 'react-native';
+import { Input, Card, Icon, Button } from 'react-native-elements';
 import Carousel from 'react-native-snap-carousel';
 import RenderResults from './RenderResults';
 import { DRAMA } from '../shared/drama';
@@ -10,17 +10,16 @@ import { COMEDY } from '../shared/comedy';
   
 const styles = StyleSheet.create({
     text: {
-      color: '#444',
+      color: '#747d8c',
       textAlign: 'center',
       fontSize: 30,
-      marginBottom: 30,
+      marginBottom: 20,
       fontWeight: '300',
     },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
         justifyContent: 'center',
-        alignItems: 'center',
+        backgroundColor: '#fff',
         borderWidth: 1,
         borderRadius: 2,
         borderColor: '#ddd',
@@ -30,15 +29,15 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.8,
         shadowRadius: 4,
         elevation: 1,
-        paddingTop: 40,
-        paddingBottom: 40,
-      },
+    },
     genre: {
         textAlign: 'center',
-        fontSize: 34,
+        fontSize: 25,
+        textTransform: 'uppercase',
         color: 'white',
         marginBottom: 5,
         marginTop: 5,
+        backgroundColor: 'rgba(0,0,0,0.2)',
 
     }
   })
@@ -50,6 +49,7 @@ class SearchPage extends React.Component {
             search: '',
             isLoading: false,
             searchMovie: false,
+            searchOpen: false,
             action: ACTION,
             comedy: COMEDY,
             drama: DRAMA,
@@ -113,30 +113,12 @@ class SearchPage extends React.Component {
                                 style={{ width: '100%', height: 200, margin: 0, }}/>
                             <Button 
                                     title="MORE DETAILS" 
-                                    type="outline"
                                     style={{position: 'absolute', bottom: 10}}
                                     onPress={() => {
                                         console.log(item)
                                         console.log(navigate)
                                         navigate('SearchedFilm', {movie: item})}}/>
                         </View>
-                        {/* <View style={{width: '60%' }}>
-                            <Text style={{fontSize: 20, textAlign: 'center'}}>{item.Title.toUpperCase()}</Text>
-                            <ListItem
-                                style={{paddingTop: 5, paddingBottom: 5 }}
-                                title="Film Details"
-                                subtitle={`Year:  ${item.Year}\nRated:  ${item.Rated}\nReleased:  ${item.Released}\nRuntime:  ${item.Runtime}\nCountry:  ${item.Country}`}/>
-                            <View style={{width: '70%', justifyContent: 'center', textAlign: 'center', marginLeft: 40, marginRight: 40,}}>
-                                <Button 
-                                    title="MORE DETAILS" 
-                                    type="outline"
-                                    style={{position: 'absolute', bottom: 10}}
-                                    onPress={() => {
-                                        console.log(item)
-                                        console.log(navigate)
-                                        navigate('SearchedFilm', {movie: item})}}/>
-                            </View>
-                        </View> */}
                     </View>
                 </Card>
             );
@@ -146,16 +128,19 @@ class SearchPage extends React.Component {
             <ScrollView>    
             <View style={{flex: 1}}>
                 <View style={styles.container}>
+                    <ImageBackground
+                        style={{ paddingTop: 40, paddingBottom: 30, width: '100%', opactiy: 0.1, height: 250}}
+                        source={require('../assets/film.gif')}>
                     <Text style={styles.text}>SEARCH FILMS</Text>
-                    <View style={{ width: '90%' }}>
+                    <View style={{ width: '100%', paddingRight: 20, paddingLeft: 20, }}>
                         <Input
                             inputContainerStyle={{marginBottom: 20}}
-                            leftIcon={{type: 'font-awesome', name: 'search' }}
+                            leftIcon={{type: 'font-awesome', name: 'search', width: 50}}
                             placeholder='  Search by film title...'
                             onChangeText={(search)=>this.setState({search: search})}
                             value={this.state.search} />
                     </View>
-                    <View style={{ width: 200, justifyContent: 'center', alignItems: 'center' }}>
+                    <View style={{ width: '100%', justifyItems: 'center', alignItems: 'center' }}>
                         <Button
                             title='Search'
                             type="outline"
@@ -163,47 +148,46 @@ class SearchPage extends React.Component {
                             raised
                             onPress={() => this.handleSearch()}/>
                     </View>
+                    </ImageBackground>
                 </View>
                 <View style={{flex: 1, marginBottom: 30}}>
                     <RenderResults navigate={navigate} searchMovie={this.state.searchMovie} isLoading={this.state.isLoading} movie={this.state.data}/>
                     <Text style={styles.genre}>Top Action Films</Text>
                     <View style={{margin: 0, justifyContent: 'center' }}>
-
-                    <Carousel
-                        ref={(c) => { this._carousel = c; }}
-                        data={this.state.action}
-                        renderItem={(item) => _renderItem(item, navigate)}
-                        sliderWidth={440}
-                        itemWidth={220}
-                        firstItem={2}/>
+                        <Carousel
+                            ref={(c) => { this._carousel = c; }}
+                            data={this.state.action}
+                            renderItem={(item) => _renderItem(item, navigate)}
+                            sliderWidth={440}
+                            itemWidth={220}
+                            firstItem={2}/>
+                        </View>
+                        <Text style={styles.genre}>Top Comedy Films</Text>
+                        <Carousel
+                            ref={(c) => { this._carousel = c; }}
+                            data={this.state.comedy}
+                            renderItem={_renderItem}
+                            sliderWidth={440}
+                            itemWidth={220}
+                            firstItem={2}/>
+                        <Text style={styles.genre}>Top Animated Films</Text>
+                        <Carousel
+                            ref={(c) => { this._carousel = c; }}
+                            data={this.state.animated}
+                            renderItem={_renderItem}
+                            sliderWidth={440}
+                            itemWidth={220}
+                            firstItem={2}/>
+                        <Text style={styles.genre}>Top Drama Films</Text>
+                        <Carousel
+                            ref={(c) => { this._carousel = c; }}
+                            data={this.state.drama}
+                            renderItem={_renderItem}
+                            sliderWidth={440}
+                            itemWidth={220}
+                            firstItem={2}/>
                     </View>
-                    <Text style={styles.genre}>Top Comedy Films</Text>
-                    <Carousel
-                        ref={(c) => { this._carousel = c; }}
-                        data={this.state.comedy}
-                        renderItem={_renderItem}
-                        sliderWidth={440}
-                        itemWidth={220}
-                        firstItem={2}/>
-                    <Text style={styles.genre}>Top Animated Films</Text>
-                    <Carousel
-                        ref={(c) => { this._carousel = c; }}
-                        data={this.state.animated}
-                        renderItem={_renderItem}
-                        sliderWidth={440}
-                        itemWidth={220}
-                        firstItem={2}/>
-                    <Text style={styles.genre}>Top Drama Films</Text>
-                    <Carousel
-                        ref={(c) => { this._carousel = c; }}
-                        data={this.state.drama}
-                        renderItem={_renderItem}
-                        sliderWidth={440}
-                        itemWidth={220}
-                        firstItem={2}/>
-                    
                 </View>
-            </View>
             </ScrollView>
         )
     }

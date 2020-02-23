@@ -1,5 +1,7 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "name": "IMDB-Film-Search",
+  "author": "Andrew Weiss",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -33,6 +35,11 @@
   "devDependencies": {
     "babel-preset-expo": "~8.0.0",
     "@babel/core": "^7.0.0"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
   },
   "private": true
 }
