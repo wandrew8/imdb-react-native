@@ -49,7 +49,7 @@ class RenderResults extends React.Component {
         } if (movie && !movie.Title && this.props.searchMovie) {
             return (
             <View>
-                <Text style={{textAlign: 'center', marginTop: 30,}}>Sorry, we cannot find that movie</Text>
+                <Text style={{textAlign: 'center', marginTop: 30, marginBottom: 30,}}>Sorry, we cannot find that movie</Text>
             </View>
         )
         } else {
