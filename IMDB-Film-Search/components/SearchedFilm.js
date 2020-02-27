@@ -59,7 +59,7 @@ class SearchedFilm extends Component {
                         </Animatable.View>
                     </View>
                     <Animatable.View animation="slideInUp">
-                        <Card>
+                        <Card style={{marginBottom: 10}}>
                             <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', borderBottomColor: '#e1e8ee', borderBottomWidth: 1, }}>
                                 <View style={{width: '50%', paddingTop: 5, paddingBottom: 5, minHeight: 180, }}>
                                     <Image
@@ -83,8 +83,7 @@ class SearchedFilm extends Component {
                                 bottomDivider/>
                             <ListItem
                                 title="Critical Reception"
-                                subtitle={`${movie.Awards === "N/A" ? "This film has recieved no awards" : movie.Awards }\n\nReviews\n${movie.Ratings[0] ? `${movie.Ratings[0].Source}: ${movie.Ratings[0].Value}` : ""}\n${movie.Ratings[1] ? `${movie.Ratings[1].Source}: ${movie.Ratings[1].Value}` : ""}\n${movie.Ratings[2] ? `${movie.Ratings[2].Source}: ${movie.Ratings[2].Value}` : ""}`}
-                                bottomDivider/>
+                                subtitle={`${movie.Awards === "N/A" ? "This film has recieved no awards" : movie.Awards }\n\nReviews\n${movie.Ratings[0] ? `${movie.Ratings[0].Source}: ${movie.Ratings[0].Value}` : ""}\n${movie.Ratings[1] ? `${movie.Ratings[1].Source}: ${movie.Ratings[1].Value}` : ""}\n${movie.Ratings[2] ? `${movie.Ratings[2].Source}: ${movie.Ratings[2].Value}` : ""}`}/>
                         </Card>
                     </Animatable.View>
                 </ScrollView>
